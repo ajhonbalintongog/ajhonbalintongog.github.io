@@ -125,6 +125,21 @@
   .proj .links a:hover{text-decoration:underline}
   .proj .links .muted{color:var(--muted);font-weight:500}
 
+  .proj.featured{grid-column:1/-1}
+  .proj.featured .proj-top{height:150px;background:linear-gradient(135deg,var(--navy),#0f766e)}
+  .proj .by{font-size:13px;font-weight:600;color:var(--muted);margin:-4px 0 12px}
+  .proj .sub{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:6px 0 10px}
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+  .feat{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fbfdfd}
+  .feat b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:4px}
+  .feat span{font-size:14px;line-height:1.5;display:block}
+  .biz{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .biz span{font-size:13px;font-weight:600;color:var(--navy);background:var(--accent-soft);padding:5px 12px;border-radius:999px}
+  .biz span.soon{background:#f1f5f9;color:var(--muted);font-weight:500}
+  .proj.featured p{flex:none}
+  @media (max-width:900px){.feat-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:680px){.feat-grid{grid-template-columns:1fr}.proj.featured .proj-top{height:132px}}
+
   /* Education */
   .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .edu{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
@@ -330,21 +345,46 @@
     <h2>Things I've built on my own</h2>
     <p class="section-intro">Side projects and my engineering capstone, built to solve real problems. Source code is private — demos and code walkthroughs are available on request.</p>
     <div class="proj-grid">
-      <article class="proj reveal">
-        <div class="proj-top"><span class="status">Pilot</span><span class="code mono">routers.sync() → dashboard</span></div>
+      <article class="proj featured reveal">
+        <div class="proj-top"><span class="status">v1.11.2 · Android</span><span class="code mono">sale.save() → print(receipt)</span></div>
         <div class="proj-body">
-          <h3>Router Monitoring &amp; Sales Dashboard</h3>
-          <p>Android app that monitors multiple remote MikroTik routers, with local sales history, dashboards, background data collection and clear connection diagnostics. Built with agent instruction files and a code knowledge graph to keep AI-assisted changes consistent.</p>
-          <div class="tags"><span class="tag">React Native</span><span class="tag">SQLite</span><span class="tag">MikroTik API</span><span class="tag">Android</span></div>
+          <h3>AJ² Business — Offline-First POS for Filipino Small Businesses</h3>
+          <div class="by">AJ Squared Systems · co-built with Aira Jovie Balintongog · formerly SARSA POS</div>
+          <p>An Android point-of-sale and store management app for Philippine micro and small retailers. Sales, stock, payments and audit records live in a local SQLite database on the phone or tablet, so the store keeps selling with no Internet, server or subscription. A Taglish interface and guided first-run setup switch on only the modules each business type needs. All amounts in PHP.</p>
+
+          <div class="sub">Built for</div>
+          <div class="biz">
+            <span>Sari-sari stores</span><span>Groceries &amp; mini-marts</span><span>Hardware stores</span><span>Pharmacies</span><span>Coffee shops</span><span>Water refilling stations</span>
+          </div>
+
+          <div class="sub">What it does for the store</div>
+          <div class="feat-grid">
+            <div class="feat"><b>Fast checkout (Benta)</b><span>Barcode scanning by camera or external scanner, cash and e-payments, Senior/PWD discounts, per-kilo and per-metre selling.</span></div>
+            <div class="feat"><b>Inventory control</b><span>Categories, units, suppliers, stock adjustments, physical counts, low-stock alerts and expiry tracking.</span></div>
+            <div class="feat"><b>Receipt-to-stock receiving</b><span>Photograph a supplier receipt and the app reads the items into stock-in entries — online, or offline with on-device recognition.</span></div>
+            <div class="feat"><b>Restock shopping list</b><span>Suggested reorders with buying units, estimated cost and a budget, so owners buy only what sells.</span></div>
+            <div class="feat"><b>E-Load &amp; e-wallet services</b><span>Records E-Load and GCash/Maya cash-in/cash-out with fee tables and wallets linked to Finance.</span></div>
+            <div class="feat"><b>Finance &amp; reports</b><span>Expenses, bills and profit sharing; business, money, digital-services and daily sales reports with returns and refunds.</span></div>
+            <div class="feat"><b>Staff access &amp; audit</b><span>Role-based, per-screen permissions, idle auto-lock and a full activity log of who did what.</span></div>
+            <div class="feat"><b>Multi-device &amp; branches</b><span>Encrypted sync between a Main device and other devices on the store network, plus branch support.</span></div>
+            <div class="feat"><b>Reliable day-to-day</b><span>58 mm Bluetooth receipt printing (sale saved first), validated backup &amp; restore, in-app updates, modules toggled without losing data.</span></div>
+          </div>
+
+          <div class="sub">Coming next</div>
+          <div class="biz">
+            <span class="soon">Utang / customer credit</span><span class="soon">Water delivery &amp; gallons</span><span class="soon">Piso WiFi collections</span><span class="soon">Cafe orders with add-ons</span><span class="soon">Pharmacy Rx</span><span class="soon">Cloud sync (C# API + SQL Server)</span>
+          </div>
+
+          <div class="tags"><span class="tag">React Native 0.84</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Kotlin / Java</span><span class="tag">SQLite</span><span class="tag">Bluetooth ESC/POS</span><span class="tag">ONNX Runtime OCR</span><span class="tag">Gemini API</span><span class="tag">AES-GCM sync</span><span class="tag">Android 8.0+</span></div>
           <div class="links"><a href="#contact">Request a demo →</a></div>
         </div>
       </article>
       <article class="proj reveal">
-        <div class="proj-top"><span class="status">In development</span><span class="code mono">checkout.scan(barcode)</span></div>
+        <div class="proj-top"><span class="status">Pilot</span><span class="code mono">routers.sync() → dashboard</span></div>
         <div class="proj-body">
-          <h3>AI-Assisted POS &amp; Inventory App</h3>
-          <p>Point-of-sale and inventory system for small retail stores: checkout, barcode scanning, receiving and inventory approval workflows, designed around a C# API and SQL-backed architecture.</p>
-          <div class="tags"><span class="tag">C#</span><span class="tag">SQL</span><span class="tag">Android</span><span class="tag">Inventory</span></div>
+          <h3>Router Monitoring &amp; Sales Dashboard</h3>
+          <p>Android app that monitors multiple remote MikroTik routers, with local sales history, dashboards, background data collection and clear connection diagnostics. Owners see per-site sales, voucher history and router health in one place, even when a site is offline.</p>
+          <div class="tags"><span class="tag">React Native</span><span class="tag">SQLite</span><span class="tag">MikroTik API</span><span class="tag">Android</span></div>
           <div class="links"><a href="#contact">Request a demo →</a></div>
         </div>
       </article>
