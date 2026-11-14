@@ -110,7 +110,9 @@
 
   /* Projects */
   .projects-bg{background:linear-gradient(180deg,#fff,var(--bg));border-top:1px solid var(--line)}
-  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .proj-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+  .proj-grid>.proj{grid-column:span 3}
+  .proj-grid>.proj.third{grid-column:span 2}
   .proj{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
   .proj:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(15,23,42,.1)}
   .proj-top{height:132px;background:linear-gradient(135deg,var(--navy),#134e4a);position:relative;padding:22px;display:flex;align-items:flex-end;overflow:hidden}
@@ -125,7 +127,7 @@
   .proj .links a:hover{text-decoration:underline}
   .proj .links .muted{color:var(--muted);font-weight:500}
 
-  .proj.featured{grid-column:1/-1}
+  .proj-grid>.proj.featured{grid-column:1/-1}
   .proj.featured .proj-top{height:150px;background:linear-gradient(135deg,var(--navy),#0f766e)}
   .proj .by{font-size:13px;font-weight:600;color:var(--muted);margin:-4px 0 12px}
   .proj .sub{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:6px 0 10px}
@@ -139,6 +141,20 @@
   .proj.featured p{flex:none}
   @media (max-width:900px){.feat-grid{grid-template-columns:1fr 1fr}}
   @media (max-width:680px){.feat-grid{grid-template-columns:1fr}.proj.featured .proj-top{height:132px}}
+
+  .steps{list-style:none;counter-reset:st;padding:0;margin:0 0 20px;display:grid;gap:10px}
+  .steps li{counter-increment:st;position:relative;padding:12px 16px 12px 52px;border:1px solid var(--line);border-radius:12px;background:#fbfdfd;font-size:14.5px;line-height:1.5}
+  .steps li::before{content:counter(st);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .steps b{color:var(--ink)}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center}
+  .kpi b{display:block;font-size:24px;color:var(--ink);line-height:1.2}
+  .kpi small{font-size:13px;color:var(--muted)}
+  .notes{padding-left:18px;margin:0 0 20px;font-size:14.5px}
+  .notes li{margin-bottom:6px}.notes li::marker{color:var(--accent)}
+  .notes b{color:var(--ink)}
+  @media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.proj-grid>.proj.third{grid-column:span 3}.proj-grid>.proj.third:last-child{grid-column:1/-1}}
+  @media (max-width:680px){.proj-grid>.proj,.proj-grid>.proj.third,.proj-grid>.proj.third:last-child{grid-column:auto}}
 
   /* Education */
   .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -379,7 +395,51 @@
           <div class="links"><a href="#contact">Request a demo →</a></div>
         </div>
       </article>
-      <article class="proj reveal">
+      <article class="proj featured reveal">
+        <div class="proj-top"><span class="status">Best Thesis · 2023</span><span class="code mono">ignition.allow(helmet &amp;&amp; vitals)</span></div>
+        <div class="proj-body">
+          <h3>Integrated Motorcycle Safety System (MCSS) — IoT Capstone</h3>
+          <div class="by">Lead Developer &amp; System Designer · 6-member team · National College of Science and Technology · July 2023</div>
+          <p>An IoT safety system that keeps a motorcycle from starting unless the rider is wearing the helmet and smartwatch and is fit to ride — and that texts an emergency contact with the GPS location when a crash is detected. Best Thesis Awardee, batch 2023.</p>
+
+          <div class="kpis">
+            <div class="kpi"><b>4.69/5</b><small>Overall rating</small></div>
+            <div class="kpi"><b>98</b><small>Professional riders surveyed</small></div>
+            <div class="kpi"><b>z = 3.70</b><small>Significant, p &lt; 0.05</small></div>
+            <div class="kpi"><b>3</b><small>ESP8266 devices over ESP-NOW</small></div>
+          </div>
+
+          <div class="sub">How it works</div>
+          <ol class="steps">
+            <li><b>Setup</b> — the rider pairs the helmet and watch by serial number and sets an emergency contact in the Android app.</li>
+            <li><b>Pre-ride check</b> — the helmet confirms it is worn and tests breath alcohol; the watch reads heart rate and SpO2. Both report to the safety box.</li>
+            <li><b>Ignition interlock</b> — the engine starts only if alcohol &lt; 0.05 g/dl, heart rate is 60–100 bpm, SpO2 is 95–100%, and helmet and watch are worn.</li>
+            <li><b>While riding</b> — continuous monitoring; removing the helmet or watch, or abnormal vitals, activates the kill switch.</li>
+            <li><b>Crash response</b> — the MPU6050 detects impact, a buzzer warns by severity, and the SIM800L sends an SMS with the NEO-6M GPS location.</li>
+          </ol>
+
+          <div class="sub">System design</div>
+          <div class="feat-grid">
+            <div class="feat"><b>Smart helmet node</b><span>MQ3 breath-alcohol check plus IR and FSR sensors to confirm the helmet is worn; reports over ESP-NOW.</span></div>
+            <div class="feat"><b>Biometric smartwatch</b><span>MAX30102 heart rate and SpO2 with an SSD1306 OLED display; reports over ESP-NOW.</span></div>
+            <div class="feat"><b>Safety box hub</b><span>Controls ignition through a relay and kill switch, detects crashes with an MPU6050, and sends GSM/GPS alerts.</span></div>
+            <div class="feat"><b>Android companion app</b><span>Live dashboard (alcohol, heart rate, SpO2, helmet/watch status) and settings: owner, device serials, emergency contact, custom SMS, hotspot.</span></div>
+            <div class="feat"><b>Embedded web server</b><span>C++ firmware runs a Wi-Fi soft AP and HTTP server on the hub, with settings saved in SPIFFS flash storage.</span></div>
+            <div class="feat"><b>Works fully offline</b><span>The phone connects straight to the safety box hotspot — no cloud or mobile data needed.</span></div>
+          </div>
+
+          <div class="sub">Design decisions</div>
+          <ul class="notes">
+            <li><b>Locked by default:</b> the engine stays locked and unlocks only when every check passes.</li>
+            <li><b>ESP-NOW over Wi-Fi routing:</b> direct, low-latency device-to-device links with no router — suited to a moving motorcycle.</li>
+            <li><b>Validated, not assumed:</b> rated 4.70 for reliability, effectiveness and user-friendliness and 4.67 for accuracy; top items were consistent operation (4.82), crash SMS alert (4.78) and app-sensor connectivity (4.76).</li>
+            <li><b>Low cost:</b> about PHP 3,372 in hardware, built through an iterative SDLC from design to field testing.</li>
+          </ul>
+
+          <div class="tags"><span class="tag">C++ / Arduino</span><span class="tag">ESP8266</span><span class="tag">ESP-NOW</span><span class="tag">Embedded web server</span><span class="tag">SPIFFS</span><span class="tag">SIM800L GSM</span><span class="tag">NEO-6M GPS</span><span class="tag">MPU6050</span><span class="tag">MAX30102</span><span class="tag">MQ3</span><span class="tag">Android (MIT App Inventor)</span></div>
+        </div>
+      </article>
+      <article class="proj third reveal">
         <div class="proj-top"><span class="status">Pilot</span><span class="code mono">routers.sync() → dashboard</span></div>
         <div class="proj-body">
           <h3>Router Monitoring &amp; Sales Dashboard</h3>
@@ -388,15 +448,7 @@
           <div class="links"><a href="#contact">Request a demo →</a></div>
         </div>
       </article>
-      <article class="proj reveal">
-        <div class="proj-top"><span class="status">Best Thesis · 2023</span><span class="code mono">ignition.allow(helmet &amp;&amp; vitals)</span></div>
-        <div class="proj-body">
-          <h3>Integrated Motorcycle Safety System</h3>
-          <p>Best Thesis Awardee, batch 2023. Lead developer of an IoT system that stops a motorcycle from starting unless the rider is wearing the helmet and is fit to ride. Three ESP8266 devices (smart helmet, biometric smartwatch, ignition control unit) talk over ESP-NOW. The ignition interlock blocks the engine on detected alcohol, abnormal heart rate or SpO2, or an unworn helmet, and crash detection sends an SMS with GPS location to emergency contacts. Rated 4.69/5 by 98 professional riders (z = 3.70, p &lt; 0.05).</p>
-          <div class="tags"><span class="tag">C++</span><span class="tag">ESP8266</span><span class="tag">ESP-NOW</span><span class="tag">GSM / GPS</span><span class="tag">Embedded web server</span><span class="tag">Android</span></div>
-        </div>
-      </article>
-      <article class="proj reveal">
+      <article class="proj third reveal">
         <div class="proj-top"><span class="status">Completed</span><span class="code mono">attendance.log(employee)</span></div>
         <div class="proj-body">
           <h3>Attendance Management System</h3>
@@ -404,7 +456,7 @@
           <div class="tags"><span class="tag">WPF</span><span class="tag">C#</span><span class="tag">MySQL</span><span class="tag">Hikvision</span></div>
         </div>
       </article>
-      <article class="proj reveal">
+      <article class="proj third reveal">
         <div class="proj-top"><span class="status">Completed</span><span class="code mono">portal.register(user)</span></div>
         <div class="proj-body">
           <h3>Self-Registration Captive Portal</h3>
