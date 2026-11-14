@@ -156,6 +156,19 @@
   @media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.proj-grid>.proj.third{grid-column:span 3}.proj-grid>.proj.third:last-child{grid-column:1/-1}}
   @media (max-width:680px){.proj-grid>.proj,.proj-grid>.proj.third,.proj-grid>.proj.third:last-child{grid-column:auto}}
 
+  .proj-top{height:96px!important}
+  .proj .more{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .35s ease,opacity .3s ease}
+  .proj .more-in{overflow:hidden;min-height:0}
+  .proj.expandable{cursor:pointer}
+  .proj.expandable.open .more,.proj.expandable:focus-within .more{grid-template-rows:1fr;opacity:1}
+  @media (hover:hover){.proj.expandable:hover .more{grid-template-rows:1fr;opacity:1}.proj.expandable:hover .hint{opacity:0;height:0;margin:0}}
+  .proj .hint{font-size:13px;font-weight:600;color:var(--accent);margin:-8px 0 14px;transition:opacity .2s}
+  .proj .hint::after{content:" ↓"}
+  .proj.expandable.open .hint{opacity:0;height:0;margin:0}
+  .proj .more-in>.by{margin:0 0 14px}
+  .proj.expandable:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){.proj .more{transition:none}}
+
   /* Education */
   .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .edu{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
@@ -361,12 +374,14 @@
     <h2>Things I've built on my own</h2>
     <p class="section-intro">Side projects and my engineering capstone, built to solve real problems. Source code is private — demos and code walkthroughs are available on request.</p>
     <div class="proj-grid">
-      <article class="proj featured reveal">
-        <div class="proj-top"><span class="status">v1.11.2 · Android</span><span class="code mono">sale.save() → print(receipt)</span></div>
+      <article class="proj featured expandable reveal" tabindex="0" aria-expanded="false">
+        <div class="proj-top"><span class="status">v1.11.2 · Android</span></div>
         <div class="proj-body">
           <h3>AJ² Business — Offline-First POS for Filipino Small Businesses</h3>
-          <div class="by">AJ Squared Systems · co-built with Aira Jovie Balintongog · formerly SARSA POS</div>
           <p>An Android point-of-sale and store management app for Philippine micro and small retailers. Sales, stock, payments and audit records live in a local SQLite database on the phone or tablet, so the store keeps selling with no Internet, server or subscription. A Taglish interface and guided first-run setup switch on only the modules each business type needs. All amounts in PHP.</p>
+          <div class="hint" aria-hidden="true">Hover or tap for details</div>
+          <div class="more"><div class="more-in">
+          <div class="by">AJ Squared Systems · co-built with Aira Jovie Balintongog · formerly SARSA POS</div>
 
           <div class="sub">Built for</div>
           <div class="biz">
@@ -391,16 +406,19 @@
             <span class="soon">Utang / customer credit</span><span class="soon">Water delivery &amp; gallons</span><span class="soon">Piso WiFi collections</span><span class="soon">Cafe orders with add-ons</span><span class="soon">Pharmacy Rx</span><span class="soon">Cloud sync (C# API + SQL Server)</span>
           </div>
 
+          </div></div>
           <div class="tags"><span class="tag">React Native 0.84</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Kotlin / Java</span><span class="tag">SQLite</span><span class="tag">Bluetooth ESC/POS</span><span class="tag">ONNX Runtime OCR</span><span class="tag">Gemini API</span><span class="tag">AES-GCM sync</span><span class="tag">Android 8.0+</span></div>
           <div class="links"><a href="#contact">Request a demo →</a></div>
         </div>
       </article>
-      <article class="proj featured reveal">
-        <div class="proj-top"><span class="status">Best Thesis · 2023</span><span class="code mono">ignition.allow(helmet &amp;&amp; vitals)</span></div>
+      <article class="proj featured expandable reveal" tabindex="0" aria-expanded="false">
+        <div class="proj-top"><span class="status">Best Thesis · 2023</span></div>
         <div class="proj-body">
           <h3>Integrated Motorcycle Safety System (MCSS) — IoT Capstone</h3>
-          <div class="by">Lead Developer &amp; System Designer · 6-member team · National College of Science and Technology · July 2023</div>
           <p>An IoT safety system that keeps a motorcycle from starting unless the rider is wearing the helmet and smartwatch and is fit to ride — and that texts an emergency contact with the GPS location when a crash is detected. Best Thesis Awardee, batch 2023.</p>
+          <div class="hint" aria-hidden="true">Hover or tap for details</div>
+          <div class="more"><div class="more-in">
+          <div class="by">Lead Developer &amp; System Designer · 6-member team · National College of Science and Technology · July 2023</div>
 
           <div class="kpis">
             <div class="kpi"><b>4.69/5</b><small>Overall rating</small></div>
@@ -436,11 +454,12 @@
             <li><b>Low cost:</b> about PHP 3,372 in hardware, built through an iterative SDLC from design to field testing.</li>
           </ul>
 
+          </div></div>
           <div class="tags"><span class="tag">C++ / Arduino</span><span class="tag">ESP8266</span><span class="tag">ESP-NOW</span><span class="tag">Embedded web server</span><span class="tag">SPIFFS</span><span class="tag">SIM800L GSM</span><span class="tag">NEO-6M GPS</span><span class="tag">MPU6050</span><span class="tag">MAX30102</span><span class="tag">MQ3</span><span class="tag">Android (MIT App Inventor)</span></div>
         </div>
       </article>
       <article class="proj third reveal">
-        <div class="proj-top"><span class="status">Pilot</span><span class="code mono">routers.sync() → dashboard</span></div>
+        <div class="proj-top"><span class="status">Pilot</span></div>
         <div class="proj-body">
           <h3>Router Monitoring &amp; Sales Dashboard</h3>
           <p>Android app that monitors multiple remote MikroTik routers, with local sales history, dashboards, background data collection and clear connection diagnostics. Owners see per-site sales, voucher history and router health in one place, even when a site is offline.</p>
@@ -449,7 +468,7 @@
         </div>
       </article>
       <article class="proj third reveal">
-        <div class="proj-top"><span class="status">Completed</span><span class="code mono">attendance.log(employee)</span></div>
+        <div class="proj-top"><span class="status">Completed</span></div>
         <div class="proj-body">
           <h3>Attendance Management System</h3>
           <p>Desktop system integrating Hikvision devices for workforce time-entry records and operational reporting.</p>
@@ -457,7 +476,7 @@
         </div>
       </article>
       <article class="proj third reveal">
-        <div class="proj-top"><span class="status">Completed</span><span class="code mono">portal.register(user)</span></div>
+        <div class="proj-top"><span class="status">Completed</span></div>
         <div class="proj-body">
           <h3>Self-Registration Captive Portal</h3>
           <p>Self-service network access registration workflow using MikroTik RouterOS scripting with a PHP and MySQL back end.</p>
@@ -523,6 +542,13 @@
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
   } else { els.forEach(el => el.classList.add('in')); }
+</script>
+<script>
+document.querySelectorAll('.proj.expandable').forEach(function(c){
+  function t(){var o=c.classList.toggle('open');c.setAttribute('aria-expanded',o)}
+  c.addEventListener('click',function(e){if(!e.target.closest('a'))t()});
+  c.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target===c){e.preventDefault();t()}});
+});
 </script>
 </body>
 </html>
